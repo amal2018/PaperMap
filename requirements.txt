@@ -1,0 +1,9 @@
+streamlit
+streamlit-extras
+geopandas
+pandas
+matplotlib
+shapely
+numpy
+contextily
+pillow
