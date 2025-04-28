@@ -5,6 +5,9 @@ import io
 from utils.geo_utils import add_map_border, add_latlon_ticks, square_bounds_with_buffer
 
 st.set_page_config(page_title="Overview Maps", layout="wide")
+col1, col2, col3 = st.columns([1,2,1])
+with col2:
+    st.image("assets/PaperMap_logo.png", width=180)
 st.title("🗺️ Overview Maps")
 
 state_shapefile_path = "data/India_State_Boundary_UPPERCASE.shp"

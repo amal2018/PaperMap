@@ -222,7 +222,7 @@ with st.sidebar:
                     "Scale Bar Length (meters)" if scalebar_unit == "meters" else "Scale Bar Length (km)",
                     100 if scalebar_unit == "meters" else 0.5,
                     10000 if scalebar_unit == "meters" else 5.0,
-                    2000 if scalebar_unit == "meters" else 2.0,
+                    1000 if scalebar_unit == "meters" else 1.0,
                     100 if scalebar_unit == "meters" else 0.5,
                 )
                 st.session_state.setdefault('scalebar_offset_x', 0.75)
@@ -332,14 +332,33 @@ if uploaded_file and all(x != "Select" for x in [site_col, lat_col, lon_col]):
         lon_ticks = np.linspace(lon_min, lon_max, num_ticks)
         xtick_points = gpd.GeoSeries([Point(lon, lat_min) for lon in lon_ticks], crs="EPSG:4326").to_crs("EPSG:3857")
         ytick_points = gpd.GeoSeries([Point(lon_min, lat) for lat in lat_ticks], crs="EPSG:4326").to_crs("EPSG:3857")
+        # --- Set tick positions and labels on all four sides ---
+
+        # 1. Set bottom and left (primary axes)
         ax.set_xticks(xtick_points.geometry.x)
         ax.set_xticklabels([f"{lon:.2f}°E" for lon in lon_ticks], fontsize=10)
         ax.set_yticks(ytick_points.geometry.y)
         ax.set_yticklabels([f"{lat:.2f}°N" for lat in lat_ticks], fontsize=10)
-        ax.tick_params(labelsize=10, direction='out', top=True, right=True)
-        ax.set_xlabel("Longitude", fontsize=12)
-        ax.set_ylabel("Latitude", fontsize=12)
-        ax.grid(True, linestyle='--', linewidth=0.5)
+        ax.set_xlabel("Longitude", fontsize=12, labelpad=10)  # <- BOTTOM title
+        ax.set_ylabel("Latitude", fontsize=12, labelpad=10)   # <- LEFT title
+
+        # 2. Top longitude labels (keep if you want, or skip)
+        ax_top = ax.secondary_xaxis('top')
+        ax_top.set_xticks(xtick_points.geometry.x)
+        ax_top.set_xticklabels([f"{lon:.2f}°E" for lon in lon_ticks], fontsize=10)
+        # ax_top.set_xlabel("Longitude", fontsize=12, labelpad=10)  # REMOVE if you only want bottom
+
+        # 3. Right latitude labels (keep if you want, or skip)
+        ax_right = ax.secondary_yaxis('right')
+        ax_right.set_yticks(ytick_points.geometry.y)
+        ax_right.set_yticklabels([f"{lat:.2f}°N" for lat in lat_ticks], fontsize=10)
+        # ax_right.set_ylabel("Latitude", fontsize=12, labelpad=10)  # REMOVE if you only want left
+
+
+        # Optional: Make all tick marks point out and set size
+        ax.tick_params(axis='both', which='both', direction='out', length=6, top=True, right=True)
+        ax_top.tick_params(axis='x', direction='out', length=6)
+        ax_right.tick_params(axis='y', direction='out', length=6)
 
         for idx, row in gdf_web.iterrows():
             text_kwargs = dict(
@@ -375,7 +394,52 @@ if uploaded_file and all(x != "Select" for x in [site_col, lat_col, lon_col]):
 
     with map_placeholder.container():
         st.pyplot(fig, use_container_width=True)
-        st.download_button("📥 Download Map as PNG", data=buf, file_name="study_area_map.png", mime="image/png", use_container_width=True)
+
+        # Create columns for right-alignment: [spacer, button column]
+        col1, col2 = st.columns([8, 1])
+        with col2:
+            st.markdown("""
+                <style>
+                .centered-download {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: flex-start;
+                }
+                .centered-download .stDownloadButton>button {
+                    width: 48px;
+                    height: 48px;
+                    border-radius: 24px;
+                    font-size: 2rem;
+                    padding: 0;
+                    margin-bottom: 0.08rem;
+                }
+                .button-desc {
+                    color: #888;
+                    font-size: 0.78rem;
+                    text-align: center;
+                    margin-top: -0.2rem;
+                    margin-bottom: 0;
+                    line-height: 1.1;
+                    margin-left: -50px;
+                }
+                </style>
+                <div class="centered-download">
+                """, unsafe_allow_html=True)
+
+            st.download_button(
+                label="📥",
+                data=buf,
+                file_name="study_area_map.png",
+                mime="image/png",
+                use_container_width=False,  # This ensures button is only as wide as needed
+                key="download_map"
+            )
+            st.markdown(
+                '<div class="button-desc">Download Map</div></div>',
+                unsafe_allow_html=True
+            )
+
         st.session_state['study_area_map'] = buf
 
     # --- Navigation ---

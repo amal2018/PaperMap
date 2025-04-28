@@ -3,6 +3,9 @@ from PIL import Image
 import io
 
 st.set_page_config(page_title="Composite Layout", layout="wide")
+col1, col2, col3 = st.columns([1,2,1])
+with col2:
+    st.image("assets/PaperMap_logo.png", width=180)
 st.title("🖼️ Composite Layout & Download")
 
 def resize_image(im, width):
