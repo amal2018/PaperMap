@@ -1,8 +1,9 @@
 import streamlit as st
 from PIL import Image
 import io
+import datetime  # <-- ADD THIS
 
-st.set_page_config(page_title="Composite Layout", layout="wide")
+st.set_page_config(page_title="Composite Layout", page_icon="assets/br_logo.png", layout="wide")
 col1, col2, col3 = st.columns([1,2,1])
 with col2:
     st.image("assets/PaperMap_logo.png", width=180)
@@ -71,3 +72,19 @@ if all(imgs_left) and img_right:
     )
 else:
     st.info("Please generate India, State, District, and Study Area maps on the previous pages first.")
+
+
+
+# ----------- ADD CITATION AT BOTTOM -----------
+today_str = datetime.date.today().strftime("%d %B %Y")
+st.markdown(
+    f"""
+    <hr>
+    <div style="font-size:0.95em; color: #444; margin-top: 30px; background: #fafafa; border-left: 4px solid #3498db; padding: 1em;">
+    <strong>How to cite this app:</strong><br>
+    Amal R. PaperMap – Publication-Quality Study Area Map Generator (Streamlit App). 2024. Available at: <a href="https://github.com/amal2018/PaperMap/" target="_blank">https://github.com/amal2018/PaperMap/tree/main</a> (Accessed: {today_str}).
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+

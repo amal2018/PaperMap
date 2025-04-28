@@ -141,7 +141,7 @@ def auto_detect_site_column(columns, lat_col, lon_col, site_keys):
     return None
 
 # ---- Streamlit App ----
-st.set_page_config(page_title="Data Upload & Study Area Map", layout="wide")
+st.set_page_config(page_title="Data Upload & Study Area Map", page_icon="assets/br_logo.png", layout="wide")
 st.title("🟢 Data Upload & Study Area Map")
 
 with st.sidebar:

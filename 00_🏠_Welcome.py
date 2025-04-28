@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.set_page_config(page_title="Welcome", layout="wide")
+st.set_page_config(page_title="Welcome", page_icon="assets/br_logo.png", layout="wide")
 
 # Center the logo at the top using columns
 col1, col2, col3 = st.columns([1,2,1])
