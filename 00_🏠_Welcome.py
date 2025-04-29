@@ -32,10 +32,18 @@ This app helps you generate **publication-quality study area maps** for your res
 **Please fill a few quick details before you start!**
 """)
 
-# --- Setup Google Sheet Connection ---
+from google.oauth2.service_account import Credentials
+
+scopes = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive"
+]
+
 credentials = Credentials.from_service_account_info(
-    st.secrets["gcp_service_account"]
+    st.secrets["gcp_service_account"],
+    scopes=scopes
 )
+
 gc = gspread.authorize(credentials)
 spreadsheet = gc.open("PaperMap_Users")  # Your Sheet Name
 worksheet = spreadsheet.sheet1
