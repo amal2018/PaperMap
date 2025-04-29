@@ -12,6 +12,11 @@ from utils.geo_utils import add_map_border, add_scalebar  # Assuming these exist
 
 import re
 
+
+# --- Form Submission Check ---
+if not st.session_state.get('form_submitted', False):
+    st.error("⚠️ Please fill the basic details on the Welcome page first.")
+    st.stop()
 # --- Robust latitude/longitude parser ---
 def parse_latlon(val):
     """
