@@ -45,7 +45,7 @@ credentials = Credentials.from_service_account_info(
 )
 
 gc = gspread.authorize(credentials)
-spreadsheet = gc.open("PaperMap_Users")  # Your Sheet Name
+spreadsheet = gc.open("PaperMap-users")  # Your Sheet Name
 worksheet = spreadsheet.sheet1
 
 # --- Session State to Track Form Submission ---
