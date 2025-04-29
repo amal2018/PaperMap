@@ -55,7 +55,7 @@ if 'form_submitted' not in st.session_state:
 # --- User Info Form ---
 if not st.session_state.form_submitted:
     with st.form("user_info_form"):
-        name = st.text_input("Name", max_chars=50)
+        name = st.text_input("Name (optional)", max_chars=50)
         affiliation = st.selectbox("Affiliation", ["Select...", "Academic", "Industry", "Research Institute", "Government", "NGO", "Other"])
         organization = st.text_input("Organization/Institute Name", max_chars=100)
         email = st.text_input("Email (optional)", max_chars=100)
@@ -64,8 +64,8 @@ if not st.session_state.form_submitted:
         submitted = st.form_submit_button("Submit")
 
         if submitted:
-            if not name.strip() or affiliation == "Select..." or not organization.strip():
-                st.error("Please fill Name, Affiliation, and Organization to proceed.")
+            if affiliation == "Select..." or not organization.strip():
+                st.error("Please fill Affiliation and Organization to proceed.")
             else:
                 timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 worksheet.append_row([timestamp, name, affiliation, organization, email, purpose])
