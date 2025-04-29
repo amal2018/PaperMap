@@ -8,7 +8,8 @@ with col2:
     with st.expander("❓ Help", expanded=False):
         st.markdown("""
         **Contact:**  
-        📧 [amalrenv@gmail.com](mailto:amalrenv@gmail.com)  
+        📧 [amalrenv@gmail.com](https://mail.google.com/mail/?view=cm&to=amalrenv@gmail.com
+)  
         
         """)
 
