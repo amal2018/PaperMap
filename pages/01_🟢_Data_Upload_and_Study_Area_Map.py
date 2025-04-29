@@ -142,13 +142,38 @@ def auto_detect_site_column(columns, lat_col, lon_col, site_keys):
 
 # ---- Streamlit App ----
 st.set_page_config(page_title="Data Upload & Study Area Map", page_icon="assets/br_logo.png", layout="wide")
+# --- Align Help Expander to Top Right ---
+col1, col2 = st.columns([7, 3])
+with col2:
+    with st.expander("❓ Help", expanded=False):
+        st.markdown("""
+        **Contact:**  
+        📧 [amalrenv@gmail.com](mailto:amalrenv@gmail.com)  
+        
+        """)
+
 st.title("🟢 Data Upload & Study Area Map")
+
 
 with st.sidebar:
     uploaded_file = st.file_uploader(
         "Upload CSV, XLS, or XLSX with Latitude & Longitude",
         type=["csv", "xls", "xlsx"]
     )
+    st.markdown(
+        """
+        <div style="border-left: 4px solid #3498db; padding-left: 1em; margin-top: 0.8em; 
+                    font-size: 0.88rem; color: #444; max-height: 100px; overflow-y: auto;">
+            <div style="font-size: 1.1rem; font-weight: bold;">Data Safety Disclaimer:</div>
+            This app runs entirely on Streamlit Cloud and <strong>does not store or share your uploaded data.</strong> 
+            All processing occurs temporarily in memory during your session and is automatically cleared when the session ends.<br>
+            For more information, please refer to 
+            <a href="https://streamlit.io/privacy-policy" target="_blank">Streamlit’s Data Privacy & Security Policy</a>.
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
 
     state_shapefile_path = "data/India_State_Boundary_UPPERCASE.shp"
     district_shapefile_path = "data/DISTRICT_BOUNDARY_CLEANED.shp"
@@ -204,6 +229,17 @@ with st.sidebar:
             if df[lat_col].isnull().any() or df[lon_col].isnull().any():
                 st.error("Some latitude/longitude values could not be parsed. Please check your input format.")
                 st.stop()
+
+            st.markdown(
+                """
+                <div style="background-color: #f0f2f6; padding: 0.6em 1em; border-left: 5px solid #4CAF50;
+                            margin-top: 1.2em; margin-bottom: 0.6em; font-size: 1.05rem; font-weight: bold; color: #222;">
+                    🛠️ Customize Your Map
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
 
             # --- Basemap selection ---
             with st.expander("🗺️ Basemap Style", expanded=False):

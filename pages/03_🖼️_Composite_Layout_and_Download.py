@@ -4,6 +4,17 @@ import io
 import datetime  # <-- ADD THIS
 
 st.set_page_config(page_title="Composite Layout", page_icon="assets/br_logo.png", layout="wide")
+# --- Align Help Expander to Top Right ---
+col1, col2 = st.columns([7, 3])
+with col2:
+    with st.expander("❓ Help", expanded=False):
+        st.markdown("""
+        **Contact:**  
+        📧 [amalrenv@gmail.com](mailto:amalrenv@gmail.com)  
+        
+        """)
+
+
 col1, col2, col3 = st.columns([1,2,1])
 with col2:
     st.image("assets/PaperMap_logo.png", width=180)
@@ -90,3 +101,22 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+st.markdown(
+    """
+    <div style="display: flex; align-items: center; margin-top: 30px; background-color: #fff8dc; padding: 1em; border-left: 4px solid #f7b733; border-radius: 6px;">
+        <div style="flex-shrink: 0;">
+            <a href="https://www.buymeacoffee.com/amalr" target="_blank">
+                <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" 
+                     alt="Buy Me A Coffee" 
+                     style="height: 45px; width: 162px;">
+            </a>
+        </div>
+        <div style="margin-left: 15px; font-size: 0.9em; color: #444;">
+            Enjoying PaperMap or using it in your work? <br>
+            You can support continued development by buying me a coffee ☕.<br>
+            Every little bit helps!
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
