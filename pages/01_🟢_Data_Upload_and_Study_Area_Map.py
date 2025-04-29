@@ -332,27 +332,27 @@ if uploaded_file and all(x != "Select" for x in [site_col, lat_col, lon_col]):
         lon_ticks = np.linspace(lon_min, lon_max, num_ticks)
         xtick_points = gpd.GeoSeries([Point(lon, lat_min) for lon in lon_ticks], crs="EPSG:4326").to_crs("EPSG:3857")
         ytick_points = gpd.GeoSeries([Point(lon_min, lat) for lat in lat_ticks], crs="EPSG:4326").to_crs("EPSG:3857")
-        # --- Set tick positions and labels on all four sides ---
+       
 
         # 1. Set bottom and left (primary axes)
         ax.set_xticks(xtick_points.geometry.x)
         ax.set_xticklabels([f"{lon:.2f}°E" for lon in lon_ticks], fontsize=10)
         ax.set_yticks(ytick_points.geometry.y)
         ax.set_yticklabels([f"{lat:.2f}°N" for lat in lat_ticks], fontsize=10)
-        ax.set_xlabel("Longitude", fontsize=12, labelpad=10)  # <- BOTTOM title
-        ax.set_ylabel("Latitude", fontsize=12, labelpad=10)   # <- LEFT title
+        ax.set_xlabel("Longitude", fontsize=12, labelpad=10)  
+        ax.set_ylabel("Latitude", fontsize=12, labelpad=10)   
 
         # 2. Top longitude labels (keep if you want, or skip)
         ax_top = ax.secondary_xaxis('top')
         ax_top.set_xticks(xtick_points.geometry.x)
         ax_top.set_xticklabels([f"{lon:.2f}°E" for lon in lon_ticks], fontsize=10)
-        # ax_top.set_xlabel("Longitude", fontsize=12, labelpad=10)  # REMOVE if you only want bottom
+        
 
         # 3. Right latitude labels (keep if you want, or skip)
         ax_right = ax.secondary_yaxis('right')
         ax_right.set_yticks(ytick_points.geometry.y)
         ax_right.set_yticklabels([f"{lat:.2f}°N" for lat in lat_ticks], fontsize=10)
-        # ax_right.set_ylabel("Latitude", fontsize=12, labelpad=10)  # REMOVE if you only want left
+        
 
 
         # Optional: Make all tick marks point out and set size
