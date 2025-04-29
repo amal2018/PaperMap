@@ -76,13 +76,15 @@ else:
 
 
 # ----------- ADD CITATION AT BOTTOM -----------
+import datetime
+
 today_str = datetime.date.today().strftime("%d %B %Y")
 st.markdown(
     f"""
     <hr>
     <div style="font-size:0.95em; color: #444; margin-top: 30px; background: #fafafa; border-left: 4px solid #3498db; padding: 1em;">
     <strong>How to cite this app:</strong><br>
-    Radhakrishnan Amal PaperMap – Publication-Quality Study Area Map Generator (Streamlit App). 2024. Available at: <a href="https://github.com/amal2018/PaperMap/" target="_blank">https://github.com/amal2018/PaperMap/tree/main</a> (Accessed: {today_str}).
+    Radhakrishnan, A. (2024) <i>PaperMap – Publication-Quality Study Area Map Generator (Streamlit App)</i>. Available at: <a href="https://github.com/amal2018/PaperMap/" target="_blank">https://github.com/amal2018/PaperMap/</a> (Accessed: {today_str}).
     </div>
     """,
     unsafe_allow_html=True
