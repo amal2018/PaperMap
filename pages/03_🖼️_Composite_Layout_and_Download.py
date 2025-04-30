@@ -121,6 +121,24 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+# ----------- ADD SOCIAL LINKS SECTION WITH ICONS -----------
+st.markdown(
+    """
+    <div style="margin-top: 30px; background-color: #eef6fb; padding: 1em; border-left: 4px solid #3498db; border-radius: 6px; font-size: 0.9em; color: #333;">
+        <strong>Connect with the developer:</strong><br><br>
+        <a href="https://www.linkedin.com/in/amalr95/" target="_blank" style="text-decoration: none; display: flex; align-items: center; margin-bottom: 8px;">
+            <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" width="20" height="20" style="margin-right: 8px;">
+            LinkedIn
+        </a>
+        <a href="https://scholar.google.com/citations?user=it153NIAAAAJ&hl=en" target="_blank" style="text-decoration: none; display: flex; align-items: center;">
+            <img src="https://static.cdnlogo.com/logos/g/95/google-scholar.svg" alt="Google Scholar" width="20" height="20" style="margin-right: 8px;">
+            Google Scholar
+        </a>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 st.markdown(
     """
     <div style="display: flex; align-items: center; margin-top: 30px; background-color: #fff8dc; padding: 1em; border-left: 4px solid #f7b733; border-radius: 6px;">
