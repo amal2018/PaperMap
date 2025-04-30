@@ -126,3 +126,7 @@ ist = timezone('Asia/Kolkata')
 
 # Get current IST time
 timestamp = datetime.now(ist).strftime("%Y-%m-%d %H:%M:%S")
+
+st.write("Current IST Time:", datetime.now(ist).strftime("%Y-%m-%d %H:%M:%S"))
+# Show it on the app
+st.markdown(f"🕒 **Current IST Time:** {current_ist}")
