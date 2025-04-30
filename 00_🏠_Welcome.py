@@ -106,10 +106,10 @@ if not df.empty and "Affiliation" in df.columns:
 
     fig.update_layout(
         barmode='stack',
-        title_text=f"Total Users: {len(df)})",
+        title_text=f"Total Users: {len(df)}",
         xaxis_title="Number of Users",
         yaxis=dict(showticklabels=False),
-        height=300,
+        height=100,
         legend=dict(orientation="h", y=-0.3, x=0.5, xanchor='center'),
         plot_bgcolor='white'
     )
