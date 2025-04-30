@@ -109,7 +109,7 @@ if not df.empty and "Affiliation" in df.columns:
         title_text=f"Total Users: {len(df)}",
         xaxis_title="Number of Users",
         yaxis=dict(showticklabels=False),
-        height=100,
+        height=200,
         legend=dict(orientation="h", y=-0.3, x=0.5, xanchor='center'),
         plot_bgcolor='white'
     )
