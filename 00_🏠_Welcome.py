@@ -80,7 +80,7 @@ if st.session_state.form_submitted:
 
 # --- Affiliation Chart (Bottom of Page) ---
 st.markdown("---")
-st.subheader("📊 Current User Stats (Live)")
+st.subheader("📊 Current User Stats")
 
 # Fetch data from sheet and convert to DataFrame
 records = worksheet.get_all_records()
@@ -106,7 +106,7 @@ if not df.empty and "Affiliation" in df.columns:
 
     fig.update_layout(
         barmode='stack',
-        title_text=f"Total Users by Affiliation (Total: {len(df)})",
+        title_text=f"Total Users: {len(df)})",
         xaxis_title="Number of Users",
         yaxis=dict(showticklabels=False),
         height=300,
