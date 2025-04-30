@@ -87,7 +87,7 @@ else:
 
 
 if st.button("Next: Feedback & Analytics ➡️"):
-    st.switch_page("pages/04_💬_Feedback_and_Analytics.py")
+    st.switch_page("pages/04_💬_Feedback.py")
 
 
 # ----------- ADD CITATION AT BOTTOM -----------
