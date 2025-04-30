@@ -33,6 +33,9 @@ credentials = Credentials.from_service_account_info(
 gc = gspread.authorize(credentials)
 spreadsheet = gc.open("PaperMap-feedback")  # Make sure you create this sheet
 worksheet = spreadsheet.sheet1
+# --- Log Page Visit ---
+timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+worksheet.append_row([timestamp, "", "", "", "Visited"])
 
 # --- Feedback Form ---
 with st.form("feedback_form"):
@@ -54,7 +57,7 @@ with st.form("feedback_form"):
 
     if submitted:
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        worksheet.append_row([timestamp, satisfaction, feature_request, comments])
+        worksheet.append_row([timestamp, satisfaction, feature_request, comments, "Feedback Submitted"])
         st.success("🎉 Thank you for your feedback!")
 
 # --- Link Back ---
