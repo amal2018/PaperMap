@@ -111,7 +111,7 @@ if not df.empty and "Affiliation" in df.columns:
         yaxis=dict(showticklabels=False),
         height=200,
         legend=dict(orientation="h", y=-0.3, x=0.5, xanchor='center'),
-        plot_bgcolor='white'
+        plot_bgcolor='#f0f0f5'
     )
 
     st.plotly_chart(fig, use_container_width=True)
