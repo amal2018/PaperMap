@@ -36,7 +36,18 @@ worksheet = spreadsheet.sheet1
 
 # --- Feedback Form ---
 with st.form("feedback_form"):
-    satisfaction = st.slider("How satisfied are you with PaperMap?", 1, 5, 3)
+    satisfaction = st.radio(
+        "How satisfied are you with PaperMap?",
+        options=[
+            "😄 Very Satisfied",
+            "🙂 Satisfied",
+            "😐 Neutral",
+            "🙁 Dissatisfied",
+            "😠 Very Dissatisfied"
+        ],
+        index=1
+    )
+
     feature_request = st.text_area("Any new features you'd like to see?")
     comments = st.text_area("Additional comments or suggestions?")
     submitted = st.form_submit_button("Submit Feedback")
