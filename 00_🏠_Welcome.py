@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import gspread
 from google.oauth2.service_account import Credentials
+from pytz import timezone
 
 # --- Page Settings ---
 st.set_page_config(page_title="Welcome", page_icon="assets/br_logo.png", layout="wide")
@@ -68,7 +69,8 @@ if not st.session_state.form_submitted:
             if affiliation == "Select..." or not organization.strip():
                 st.error("Please fill Affiliation and Organization to proceed.")
             else:
-                timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                ist = timezone('Asia/Kolkata')
+                timestamp = datetime.now(ist).strftime("%Y-%m-%d %H:%M:%S")
                 worksheet.append_row([timestamp, name, affiliation, organization, email, purpose])
                 st.success("Thank you! You can now start mapping.")
                 st.session_state.form_submitted = True
@@ -117,3 +119,6 @@ if not df.empty and "Affiliation" in df.columns:
     st.plotly_chart(fig, use_container_width=True)
 else:
     st.info("No user data available yet to generate the chart.")
+
+
+st.write("Current IST Time:", datetime.now(ist).strftime("%Y-%m-%d %H:%M:%S"))
