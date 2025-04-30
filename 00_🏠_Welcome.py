@@ -121,4 +121,3 @@ else:
     st.info("No user data available yet to generate the chart.")
 
 
-st.write("Current IST Time:", datetime.now(ist).strftime("%Y-%m-%d %H:%M:%S"))
