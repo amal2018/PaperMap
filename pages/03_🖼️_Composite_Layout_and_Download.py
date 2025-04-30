@@ -86,7 +86,7 @@ else:
     st.info("Please generate India, State, District, and Study Area maps on the previous pages first.")
 
 
-if st.button("Next: Feedback & Analytics ➡️"):
+if st.button("Next: Feedback ➡️"):
     st.switch_page("pages/04_💬_Feedback.py")
 
 

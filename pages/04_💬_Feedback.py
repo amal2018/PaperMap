@@ -4,7 +4,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 
 # --- Page Settings ---
-st.set_page_config(page_title="Feedback & Analytics", page_icon="assets/br_logo.png", layout="wide")
+st.set_page_config(page_title="Feedback", page_icon="assets/br_logo.png", layout="wide")
 
 # --- Help Expander ---
 col1, col2 = st.columns([7, 3])
@@ -17,7 +17,7 @@ col1, col2, col3 = st.columns([1,2,1])
 with col2:
     st.image("assets/PaperMap_logo.png", width=180)
 
-st.title("💬 Feedback & User Analytics")
+st.title("💬 Feedback")
 
 # --- Google Sheets Setup ---
 scopes = [
