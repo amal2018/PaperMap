@@ -121,12 +121,11 @@ else:
     st.info("No user data available yet to generate the chart.")
 
 
+
+
 # Define IST timezone
 ist = timezone('Asia/Kolkata')
+current_ist = datetime.now(ist).strftime("%Y-%m-%d %H:%M:%S")
 
-# Get current IST time
-timestamp = datetime.now(ist).strftime("%Y-%m-%d %H:%M:%S")
-
-st.write("Current IST Time:", datetime.now(ist).strftime("%Y-%m-%d %H:%M:%S"))
 # Show it on the app
 st.markdown(f"🕒 **Current IST Time:** {current_ist}")
