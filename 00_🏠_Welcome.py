@@ -1,5 +1,8 @@
 import streamlit as st
 from datetime import datetime
+import pandas as pd
+import plotly.graph_objects as go
+import plotly.express as px
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -22,7 +25,6 @@ with col2:
 
 # --- Title & Description ---
 st.title("🏠 Welcome to PaperMap")
-
 st.markdown("""
 This app helps you generate **publication-quality study area maps** for your research papers:
 1. **Data Upload & Study Area Map:** Upload your CSV, xls, or xlsx file and customize your main study area map.
@@ -32,8 +34,7 @@ This app helps you generate **publication-quality study area maps** for your res
 **Please fill a few quick details before you start!**
 """)
 
-from google.oauth2.service_account import Credentials
-
+# --- Google Sheets Setup ---
 scopes = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive"
@@ -45,7 +46,7 @@ credentials = Credentials.from_service_account_info(
 )
 
 gc = gspread.authorize(credentials)
-spreadsheet = gc.open("PaperMap-users")  # Your Sheet Name
+spreadsheet = gc.open("PaperMap-users")
 worksheet = spreadsheet.sheet1
 
 # --- Session State to Track Form Submission ---
@@ -76,3 +77,43 @@ if not st.session_state.form_submitted:
 if st.session_state.form_submitted:
     if st.button("Start Mapping ➡️"):
         st.switch_page("pages/01_🟢_Data_Upload_and_Study_Area_Map.py")
+
+# --- Affiliation Chart (Bottom of Page) ---
+st.markdown("---")
+st.subheader("📊 Current User Stats (Live)")
+
+# Fetch data from sheet and convert to DataFrame
+records = worksheet.get_all_records()
+df = pd.DataFrame(records)
+
+if not df.empty and "Affiliation" in df.columns:
+    affiliation_counts = df['Affiliation'].value_counts()
+    affiliation_labels = affiliation_counts.index.tolist()
+    affiliation_values = affiliation_counts.values.tolist()
+
+    fig = go.Figure()
+    colors = px.colors.qualitative.Plotly
+
+    for i, (label, value) in enumerate(zip(affiliation_labels, affiliation_values)):
+        fig.add_trace(go.Bar(
+            y=["Users"],
+            x=[value],
+            name=f"{label} ({value})",
+            orientation='h',
+            marker=dict(color=colors[i % len(colors)]),
+            hovertemplate=f'{label}: {value}<extra></extra>'
+        ))
+
+    fig.update_layout(
+        barmode='stack',
+        title_text=f"Total Users by Affiliation (Total: {len(df)})",
+        xaxis_title="Number of Users",
+        yaxis=dict(showticklabels=False),
+        height=300,
+        legend=dict(orientation="h", y=-0.3, x=0.5, xanchor='center'),
+        plot_bgcolor='white'
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
+else:
+    st.info("No user data available yet to generate the chart.")
