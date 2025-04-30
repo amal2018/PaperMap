@@ -171,7 +171,7 @@ with st.sidebar:
         <div style="border-left: 4px solid #3498db; padding-left: 1em; margin-top: 0.8em; 
                     font-size: 0.88rem; color: #444; max-height: 100px; overflow-y: auto;">
             <div style="font-size: 1.1rem; font-weight: bold;">Data Safety Disclaimer:</div>
-            This app runs entirely on Streamlit Cloud and <strong>does not store or share your uploaded data.</strong> 
+            This app runs entirely on Streamlit Cloud and <strong>does not store or share your uploaded study area data.</strong> 
             All processing occurs temporarily in memory during your session and is automatically cleared when the session ends.<br>
             For more information, please refer to 
             <a href="https://streamlit.io/privacy-policy" target="_blank">Streamlit’s Data Privacy & Security Policy</a>.
