@@ -162,7 +162,7 @@ st.markdown("""
     <style>
     .sidebar-hint {
         position: fixed;
-        top: 65px;
+        top: 12px;
         left: 65px;
         z-index: 9999;
         background-color: #fff8dc;
