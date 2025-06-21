@@ -9,8 +9,9 @@ from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 import matplotlib.image as mpimg
 import io
 from utils.geo_utils import add_map_border, add_scalebar  # Assuming these exist in your project
-
 import re
+# ---- Streamlit App ----
+st.set_page_config(page_title="Data Upload & Study Area Map", page_icon="assets/br_logo.png", layout="wide")
 # --- Show hint banner BEFORE any stop() ---
 st.markdown(
     """
@@ -162,26 +163,9 @@ def auto_detect_site_column(columns, lat_col, lon_col, site_keys):
         pass
     return None
 
-# ---- Streamlit App ----
-st.set_page_config(page_title="Data Upload & Study Area Map", page_icon="assets/br_logo.png", layout="wide")
 
-# --- Quick hint banner (top of the page) ---
-st.markdown(
-    """
-    <style>
-        .hint-banner {
-            background: #fff7d9;               /* pale amber */
-            border-left: 5px solid #ffb300;    /* bright accent */
-            padding: 0.6em 1em;
-            margin-bottom: 0.8em;
-            font-weight: 600;
-            font-size: 1.05rem;
-        }
-    </style>
-    <div class="hint-banner">👈 Open the left menu and upload your data to begin.</div>
-    """,
-    unsafe_allow_html=True
-)
+
+
 
 # --- Align Help Expander to Top Right ---
 col1, col2 = st.columns([7, 3])
