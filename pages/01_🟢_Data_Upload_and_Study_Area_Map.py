@@ -22,21 +22,21 @@ st.markdown(
             left: 0;
             width: 100%;
             z-index: 9999;
-            background: #fff7d9;
-            border-left: 5px solid #ffb300;
+            background: #fffbe6;  /* very pale yellow */
+            border-left: 5px solid #ffe58f;  /* pale pastel yellow */
             padding: 0.6em 1em;
             font-weight: 600;
             font-size: 1.05rem;
+            color: #555555;  /* grey text */
         }
         .stApp {
             margin-top: 60px;
         }
     </style>
-    <div class="sticky-banner">👈 Open the left menu (>>) and upload your data to begin.</div>
+    <div class="sticky-banner">👇 Click here to open the sidebar and upload your data to begin.</div>
     """,
     unsafe_allow_html=True
 )
-
 
 
 # --- Form Submission Check ---
