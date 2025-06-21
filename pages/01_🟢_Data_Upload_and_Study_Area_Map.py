@@ -157,58 +157,7 @@ with col2:
 )  
         
         """)
-# --- Top full-width sticky alert with close button ---
-st.markdown("""
-    <style>
-    .top-banner {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background-color: #fff8dc;
-        border-bottom: 1px solid #e0c97f;
-        padding: 10px 20px;
-        font-weight: 500;
-        font-size: 0.9rem;
-        z-index: 10000;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    }
-    .top-banner button {
-        background: none;
-        border: none;
-        font-size: 1rem;
-        font-weight: bold;
-        color: #555;
-        cursor: pointer;
-        margin-left: 20px;
-    }
-    </style>
-""", unsafe_allow_html=True)
 
-# If no file uploaded and not dismissed, show banner
-if st.session_state.get("form_submitted", False) and not st.session_state.get("sidebar_hint_dismissed") and 'uploaded_file' in locals() and not uploaded_file:
-    st.markdown("""
-        <div class="top-banner">
-            👈 <strong>Click the menu</strong> and upload your data from the sidebar
-            <form action="" method="post">
-                <button name="dismiss" type="submit">✖</button>
-            </form>
-        </div>
-    """, unsafe_allow_html=True)
-
-# Auto-hide after upload or manual close
-if 'uploaded_file' in locals() and uploaded_file:
-    st.session_state.sidebar_hint_dismissed = True
-
-if 'dismiss' in st.session_state:
-    st.session_state.sidebar_hint_dismissed = True
-
-# Set the flag once user uploads
-if 'uploaded_file' in locals() and uploaded_file:
-    st.session_state.sidebar_hint_shown = True
 st.title("🟢 Data Upload & Study Area Map")
 
 
@@ -363,6 +312,59 @@ with st.sidebar:
                 st.session_state.arrow_offset_x = st.session_state.arrow_offset_x_input
                 st.session_state.arrow_offset_y = st.session_state.arrow_offset_y_input
                 st.session_state.arrow_zoom = st.slider("Zoom", 0.01, 0.15, st.session_state.arrow_zoom, 0.01)
+# ---------- Sticky banner placeholder and logic ----------
+banner = st.empty()  # stays at top of the DOM
+
+def show_sidebar_hint():
+    with banner.container():
+        st.markdown(
+            """
+            <style>
+            .top-banner {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                background: linear-gradient(90deg, #fff8dc 0%, #ffefd5 100%);
+                border-bottom: 1px solid #e0c97f;
+                padding: 10px 22px;
+                font-weight: 500;
+                font-size: 0.9rem;
+                z-index: 10000;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            }
+
+            /* Prevent banner overlap */
+            .main > div:nth-child(1) {
+                margin-top: 55px;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+
+        col_msg, col_btn = st.columns([0.9, 0.1])
+        with col_msg:
+            st.markdown("👈 **Open the left menu** and upload your data to begin.", unsafe_allow_html=True)
+        with col_btn:
+            if st.button("✖", key="dismiss_banner"):
+                st.session_state.sidebar_hint_dismissed = True
+                banner.empty()
+                st.experimental_rerun()
+
+# ---------- When to show banner ----------
+if (
+    st.session_state.get("form_submitted", False)
+    and not st.session_state.get("sidebar_hint_dismissed")
+    and uploaded_file is None
+):
+    show_sidebar_hint()
+else:
+    banner.empty()
+    st.session_state.sidebar_hint_dismissed = True
 
 # --- Main Area: Map Plotting ---
 if uploaded_file and all(x != "Select" for x in [site_col, lat_col, lon_col]):
