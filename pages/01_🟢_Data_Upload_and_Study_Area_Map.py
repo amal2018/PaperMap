@@ -146,19 +146,32 @@ def auto_detect_site_column(columns, lat_col, lon_col, site_keys):
     return None
 
 # ---- Streamlit App ----
-st.set_page_config(page_title="Data Upload & Study Area Map", page_icon="assets/br_logo.png", layout="wide")
+st.set_page_config(
+    page_title="Data Upload & Study Area Map",
+    page_icon="assets/br_logo.png",
+    layout="wide"
+)
+
+# ⚡ Sidebar hint block  ➜  add this   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+# If the sidebar is collapsed and no file uploaded, show a dismiss-able toast
+if not st.sidebar and 'sidebar_hint_shown' not in st.session_state:
+    st.toast("👈  Use the sidebar to upload data & customise the map", icon="💡")
+    st.session_state.sidebar_hint_shown = True
+# ---------------------------------------------------------------------------
+
 # --- Align Help Expander to Top Right ---
 col1, col2 = st.columns([7, 3])
 with col2:
     with st.expander("❓ Help", expanded=False):
-        st.markdown("""
-        **Contact:**  
-        📧 [amalrenv@gmail.com](https://mail.google.com/mail/?view=cm&to=amalrenv@gmail.com
-)  
-        
-        """)
+        st.markdown(
+            """
+            **Contact:**  
+            📧 [amalrenv@gmail.com](mailto:amalrenv@gmail.com)
+            """
+        )
 
 st.title("🟢 Data Upload & Study Area Map")
+
 
 
 with st.sidebar:
