@@ -320,6 +320,7 @@ def show_sidebar_hint():
         st.markdown(
             """
             <style>
+            /* --- Sticky top banner --- */
             .top-banner {
                 position: fixed;
                 top: 0;
@@ -337,10 +338,12 @@ def show_sidebar_hint():
                 box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
             }
 
-            .main > div:nth-child(1) {
+            /* Push Streamlit body down so it's not covered */
+            .main > div:first-child {
                 margin-top: 55px;
             }
 
+            /* ✖ close button */
             .dismiss-btn {
                 background: #fff;
                 border: 1px solid #ccc;
@@ -359,7 +362,23 @@ def show_sidebar_hint():
             unsafe_allow_html=True
         )
 
-        
+        st.markdown(
+            """
+            <div class="top-banner">
+                👈 <strong>Open the left menu</strong> and upload your data to begin.
+                <form method="post">
+                    <button class="dismiss-btn" name="dismiss_banner">✖</button>
+                </form>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+        # Detect if ✖ was clicked
+        if st.session_state.get("dismiss_banner"):
+            st.session_state.sidebar_hint_dismissed = True
+            banner.empty()
+            st.experimental_rerun()
 
 # ---------- When to show banner ----------
 if (
