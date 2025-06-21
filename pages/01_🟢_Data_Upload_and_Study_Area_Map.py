@@ -33,7 +33,7 @@ st.markdown(
             margin-top: 60px;
         }
     </style>
-    <div class="sticky-banner">👇 Click here to open the sidebar and upload your data to begin.</div>
+    <div class="sticky-banner">👇 Click here (>>) to open the sidebar and upload your data to begin.</div>
     """,
     unsafe_allow_html=True
 )
