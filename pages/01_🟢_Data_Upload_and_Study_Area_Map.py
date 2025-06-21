@@ -157,40 +157,54 @@ with col2:
 )  
         
         """)
-# --- Sticky banner near sidebar toggle: visible only before upload ---
+# --- Top full-width sticky alert with close button ---
 st.markdown("""
     <style>
-    .sidebar-hint {
+    .top-banner {
         position: fixed;
-        top: 12px;
-        left: 65px;
-        z-index: 9999;
+        top: 0;
+        left: 0;
+        width: 100%;
         background-color: #fff8dc;
-        padding: 8px 16px;
-        border-left: 6px solid #f39c12;
+        border-bottom: 1px solid #e0c97f;
+        padding: 10px 20px;
         font-weight: 500;
-        font-size: 0.85rem;
-        border-radius: 4px;
-        box-shadow: 1px 1px 6px rgba(0,0,0,0.1);
+        font-size: 0.9rem;
+        z-index: 10000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
     }
-    @media (max-width: 768px) {
-        .sidebar-hint {
-            left: 12px;
-            right: 12px;
-            top: 55px;
-            font-size: 0.8rem;
-        }
+    .top-banner button {
+        background: none;
+        border: none;
+        font-size: 1rem;
+        font-weight: bold;
+        color: #555;
+        cursor: pointer;
+        margin-left: 20px;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# 👇 Show only if no file uploaded yet
-if 'sidebar_hint_shown' not in st.session_state and st.session_state.get("form_submitted", False):
+# If no file uploaded and not dismissed, show banner
+if st.session_state.get("form_submitted", False) and not st.session_state.get("sidebar_hint_dismissed") and 'uploaded_file' in locals() and not uploaded_file:
     st.markdown("""
-        <div class="sidebar-hint">
+        <div class="top-banner">
             👈 <strong>Click the menu</strong> and upload your data from the sidebar
+            <form action="" method="post">
+                <button name="dismiss" type="submit">✖</button>
+            </form>
         </div>
     """, unsafe_allow_html=True)
+
+# Auto-hide after upload or manual close
+if 'uploaded_file' in locals() and uploaded_file:
+    st.session_state.sidebar_hint_dismissed = True
+
+if 'dismiss' in st.session_state:
+    st.session_state.sidebar_hint_dismissed = True
 
 # Set the flag once user uploads
 if 'uploaded_file' in locals() and uploaded_file:
