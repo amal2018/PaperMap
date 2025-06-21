@@ -157,7 +157,44 @@ with col2:
 )  
         
         """)
+# --- Sticky banner near sidebar toggle: visible only before upload ---
+st.markdown("""
+    <style>
+    .sidebar-hint {
+        position: fixed;
+        top: 65px;
+        left: 65px;
+        z-index: 9999;
+        background-color: #fff8dc;
+        padding: 8px 16px;
+        border-left: 6px solid #f39c12;
+        font-weight: 500;
+        font-size: 0.85rem;
+        border-radius: 4px;
+        box-shadow: 1px 1px 6px rgba(0,0,0,0.1);
+    }
+    @media (max-width: 768px) {
+        .sidebar-hint {
+            left: 12px;
+            right: 12px;
+            top: 55px;
+            font-size: 0.8rem;
+        }
+    }
+    </style>
+""", unsafe_allow_html=True)
 
+# 👇 Show only if no file uploaded yet
+if 'sidebar_hint_shown' not in st.session_state and st.session_state.get("form_submitted", False):
+    st.markdown("""
+        <div class="sidebar-hint">
+            👈 <strong>Click the menu</strong> and upload your data from the sidebar
+        </div>
+    """, unsafe_allow_html=True)
+
+# Set the flag once user uploads
+if 'uploaded_file' in locals() and uploaded_file:
+    st.session_state.sidebar_hint_shown = True
 st.title("🟢 Data Upload & Study Area Map")
 
 
@@ -185,19 +222,7 @@ with st.sidebar:
     district_shapefile_path = "data/DISTRICT_BOUNDARY_CLEANED.shp"
 
     site_col = lat_col = lon_col = None
-     # Show banner hint if no file uploaded
-    if uploaded_file is None:
-        st.markdown(
-            """
-            <div style="background-color:#fff8dc; padding:10px 16px;
-                        border-left:6px solid #f39c12;
-                        font-weight:500; font-size:0.95rem; margin-top:1em;">
-                👈 <strong>Use the sidebar</strong> to upload your study area data (CSV, XLS, or XLSX).
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
+    
     if uploaded_file:
         file_type = uploaded_file.name.split('.')[-1].lower()
         if file_type in ['xls', 'xlsx']:
