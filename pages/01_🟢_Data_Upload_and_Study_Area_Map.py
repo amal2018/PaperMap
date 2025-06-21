@@ -11,6 +11,23 @@ import io
 from utils.geo_utils import add_map_border, add_scalebar  # Assuming these exist in your project
 
 import re
+# --- Show hint banner BEFORE any stop() ---
+st.markdown(
+    """
+    <style>
+        .hint-banner {
+            background: #fff7d9;
+            border-left: 5px solid #ffb300;
+            padding: 0.6em 1em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+    </style>
+    <div class="hint-banner">👈 Open the left menu and upload your data to begin.</div>
+    """,
+    unsafe_allow_html=True
+)
 
 
 # --- Form Submission Check ---
