@@ -147,6 +147,25 @@ def auto_detect_site_column(columns, lat_col, lon_col, site_keys):
 
 # ---- Streamlit App ----
 st.set_page_config(page_title="Data Upload & Study Area Map", page_icon="assets/br_logo.png", layout="wide")
+
+# --- Quick hint banner (top of the page) ---
+st.markdown(
+    """
+    <style>
+        .hint-banner {
+            background: #fff7d9;               /* pale amber */
+            border-left: 5px solid #ffb300;    /* bright accent */
+            padding: 0.6em 1em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+    </style>
+    <div class="hint-banner">👈 Open the left menu and upload your data to begin.</div>
+    """,
+    unsafe_allow_html=True
+)
+
 # --- Align Help Expander to Top Right ---
 col1, col2 = st.columns([7, 3])
 with col2:
