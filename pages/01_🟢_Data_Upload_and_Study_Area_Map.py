@@ -159,7 +159,21 @@ with col2:
         """)
 
 st.title("🟢 Data Upload & Study Area Map")
-
+# 👇 Add this block directly below the title
+if uploaded_file is None:
+    st.markdown("""
+        <div style="
+            background-color: #fff3cd;
+            border-left: 6px solid #ffeeba;
+            padding: 0.75em 1em;
+            margin-top: 0.5em;
+            font-size: 0.95rem;
+            color: #856404;
+            border-radius: 6px;
+        ">
+            ☰ <strong>Heads up!</strong> Please click the <strong>menu icon</strong> at the top-left to open the sidebar and upload your study area file.
+        </div>
+    """, unsafe_allow_html=True)
 
 with st.sidebar:
     uploaded_file = st.file_uploader(
