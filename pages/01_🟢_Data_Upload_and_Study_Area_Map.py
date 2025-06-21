@@ -337,23 +337,29 @@ def show_sidebar_hint():
                 box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
             }
 
-            /* Prevent banner overlap */
             .main > div:nth-child(1) {
                 margin-top: 55px;
+            }
+
+            .dismiss-btn {
+                background: #fff;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                padding: 5px 12px;
+                font-size: 1rem;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background-color 0.2s ease;
+            }
+            .dismiss-btn:hover {
+                background-color: #f0f0f0;
             }
             </style>
             """,
             unsafe_allow_html=True
         )
 
-        col_msg, col_btn = st.columns([0.9, 0.1])
-        with col_msg:
-            st.markdown("👈 **Open the left menu** and upload your data to begin.", unsafe_allow_html=True)
-        with col_btn:
-            if st.button("✖", key="dismiss_banner"):
-                st.session_state.sidebar_hint_dismissed = True
-                banner.empty()
-                st.experimental_rerun()
+        
 
 # ---------- When to show banner ----------
 if (
