@@ -16,19 +16,27 @@ st.set_page_config(page_title="Data Upload & Study Area Map", page_icon="assets/
 st.markdown(
     """
     <style>
-        .hint-banner {
+        .sticky-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
             background: #fff7d9;
             border-left: 5px solid #ffb300;
             padding: 0.6em 1em;
-            margin-bottom: 0.8em;
             font-weight: 600;
             font-size: 1.05rem;
         }
+        .stApp {
+            margin-top: 60px;
+        }
     </style>
-    <div class="hint-banner">👈 Open the left menu and upload your data to begin.</div>
+    <div class="sticky-banner">👈 Open the left menu and upload your data to begin.</div>
     """,
     unsafe_allow_html=True
 )
+
 
 
 # --- Form Submission Check ---
