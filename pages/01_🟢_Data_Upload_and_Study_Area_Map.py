@@ -278,7 +278,6 @@ with st.sidebar:
             # --- Basemap selection ---
             with st.expander("🗺️ Basemap Style", expanded=False):
                 basemap_options = {
-                    "OpenStreetMap": ctx.providers.OpenStreetMap.Mapnik,
                     "CartoDB Positron": ctx.providers.CartoDB.Positron,
                     "Esri World Topo": ctx.providers.Esri.WorldTopoMap,
                     "Esri Standard Streets": ctx.providers.Esri.WorldStreetMap
